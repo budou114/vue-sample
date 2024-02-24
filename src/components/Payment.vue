@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch, toRef } from 'vue';
+import { ref, reactive, computed, watch, toRef, onBeforeMount, onMounted, onUpdated } from 'vue';
 
 // const itemName1 = ref<String>("Desk");
 const itemName2 = "Bike";
@@ -41,6 +41,18 @@ const budget = 50000;
 //     return item1.price + "yen";
 //   }
 // });
+
+onBeforeMount(() => {
+  console.log("before mount");
+});
+
+onMounted(() => {
+  console.log("mounted");
+});
+
+onUpdated(() => {
+  console.log("updated");
+})
 
 const priceLabel = ref<String>(item1.price + "yen");
 const { price } = toRef(item1);

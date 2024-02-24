@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, watch, toRef } from 'vue';
 
 // const itemName1 = ref<String>("Desk");
 const itemName2 = "Bike";
@@ -34,11 +34,21 @@ const clear = () => {
 const budget = 50000;
 
 // computedは条件に応じて表示を変更したい場合に使用する
-const priceLabel = computed(() => {
-  if (item1.price > budget) {
-    return "too expensive ...";
+// const priceLabel = computed(() => {
+//   if (item1.price > budget) {
+//     return "too expensive ...";
+//   } else {
+//     return item1.price + "yen";
+//   }
+// });
+
+const priceLabel = ref<String>(item1.price + "yen");
+const { price } = toRef(item1);
+watch(price, () => {
+  if (price.value > budget) {
+    price.value = "too expensive ...";
   } else {
-    return item1.price + "yen";
+    price.value + "yen";
   }
 });
 
